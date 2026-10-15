@@ -1,35 +1,35 @@
-import { getClient } from '@/fake/fake-data';
+import { getClient } from "@/fake/fake-data";
 
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router";
 
-import { NoContactSelected } from './NoContactSelected';
-import { ContactInfoSkeleton } from './ContactInfoSkeleton';
-import { ContactInfo } from './ContactInfo';
+import { NoContactSelected } from "./NoContactSelected";
+import { ContactInfoSkeleton } from "./ContactInfoSkeleton";
+import { ContactInfo } from "./ContactInfo";
 
 const ContactDetails = () => {
-    const { clientId } = useParams();
+  const { clientId } = useParams();
 
-    const { data: client, isLoading } = useQuery({
-        queryKey: ['client', clientId],
-        queryFn: () => getClient(clientId!),
-        enabled: !!clientId,
-        staleTime: 1000 * 60 * 5,
-    });
+  const { data: client, isLoading } = useQuery({
+    queryKey: ["client", clientId],
+    queryFn: () => getClient(clientId!),
+    enabled: !!clientId,
+    staleTime: 1000 * 60 * 5,
+  });
 
-    if (!clientId) {
-        return <NoContactSelected />
-    }
+  if (!clientId) {
+    return <NoContactSelected />;
+  }
 
-    if (isLoading && !client) {
-        return <ContactInfoSkeleton />
-    }
+  if (isLoading && !client) {
+    return <ContactInfoSkeleton />;
+  }
 
-    if (client) {
-        return <ContactInfo client={client} />
-    }
+  if (client) {
+    return <ContactInfo client={client} />;
+  }
 
-    return <div>Cliente no encontrado</div>
-}
+  return <div>Cliente no encontrado</div>;
+};
 
-export default ContactDetails
+export default ContactDetails;
